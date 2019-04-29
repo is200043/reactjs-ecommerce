@@ -14,6 +14,12 @@ class AppBar extends React.Component {
                 elevation='medium'
                 style={{ zIndex: '1' }}
             >
+                <Heading
+                    level='4'
+                    margin='xsmall'
+                >
+                    DekHippoZaa Store
+            </Heading>
             </Box>
         )
     }
