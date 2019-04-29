@@ -7,14 +7,10 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <Box direction='column' fill>
+      <Box direction="column" fill>
         <AppBar />
-        <Box
-          direction='row'
-          pad='medium'
-          fill
-        >
-          <Box width='medium'>
+        <Box direction="row" pad="medium" fill >
+          <Box width="medium">
             search
           </Box>
           <Box flex>
