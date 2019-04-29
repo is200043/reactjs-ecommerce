@@ -1,9 +1,20 @@
 import React from 'react';
+import { Box, Heading } from 'grommet';
 
 class AppBar extends React.Component {
-    render () {
+    render() {
         return (
-            <div>appbar</div>
+            <Box
+                tag='header'
+                direction='row'
+                align='center'
+                justify='between'
+                background='brand'
+                pad={{ left: 'medium', right: 'small', vertical: 'small' }}
+                elevation='medium'
+                style={{ zIndex: '1' }}
+            >
+            </Box>
         )
     }
 }
