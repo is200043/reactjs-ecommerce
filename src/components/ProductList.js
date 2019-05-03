@@ -10,42 +10,34 @@ class ProductList extends React.Component {
     componentDidMount() {
         this.fetchData();
     }
-    componentDidUpdate(prevProps, prevState, snapshot) {
+    componentDidUpdate(prevProps, prevState) {
         if (prevProps.search !== this.props.search) {
-            // console.log(this.props.search);
-            if (this.props.search === "") {
-                this.fetchData();
-            } else {
-                this.findData();
-            }
+            this.fetchData();
         }
-
     }
-    fetchData = async () => {
-        const res = await request.get('/products');
+    fetchData = async (search) => {
+        const res = await request.get('/products?include=main_image' + (this.props.search !== "" ? '&filter=eq(name,' + this.props.search + ')': ''));
         const data = res.data.data.map(item => {
+            let image = 'https://via.placeholder.com/300x400.png';
+            try {
+                console.log(item.relationships.main_image.data.id);
+                console.log(res.data.included.main_images);
+                let img = res.data.included.main_images.find((images) => item.relationships.main_image.data.id === images.link.id)
+                console.log(img.link.href);
+            } catch (error) {
+                console.log(error);
+                image = 'https://via.placeholder.com/300x400.png';
+            }
+            console.log(image);
             return {
                 name: item.name,
                 description: item.description,
-                image: 'https://via.placeholder.com/300x400.png',
+                image: image,
                 price: item.meta.display_price.with_tax.formatted
             }
         })
         this.setState({ data: data });
-        console.log(data);
-    }
-    findData = async () => {
-        const res = await request.get('/products?filter=eq(name,' + this.props.search + ')');
-        const data = res.data.data.map(item => {
-            return {
-                name: item.name,
-                description: item.description,
-                image: 'https://via.placeholder.com/300x400.png',
-                price: item.meta.display_price.with_tax.formatted
-            }
-        })
-        this.setState({ data: data });
-        console.log(data);
+        // console.log(data);
     }
     render() {
         const { data } = this.state;

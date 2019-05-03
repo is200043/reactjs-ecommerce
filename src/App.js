@@ -1,15 +1,12 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Box, Grommet, TextInput } from 'grommet';
 import AppBar from './components/AppBar';
 import ProductList from './components/ProductList';
 import './App.css';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      search: ""
-    };
+class App extends Component {
+  state = {
+    query: ''
   }
   onSearchChange = (event) => {
     this.setState({ "search": event.target.value });
@@ -24,13 +21,13 @@ class App extends React.Component {
               <Box direction="row" basis="medium" pad="small">
                 <TextInput
                   placeholder="Search here"
-                  value={this.state.search}
-                  onChange={this.onSearchChange}
+                  value={this.state.query}
+                  onChange={(e) => this.setState({query: e.target.value})}
                 />
               </Box>
             </Box>
             <Box flex>
-              <ProductList search={this.state.search} />
+              <ProductList search={this.state.query} />
             </Box>
           </Box>
         </Box>
