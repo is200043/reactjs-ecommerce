@@ -20,15 +20,12 @@ class ProductList extends React.Component {
         const data = res.data.data.map(item => {
             let image = 'https://via.placeholder.com/300x400.png';
             try {
-                console.log(item.relationships.main_image.data.id);
-                console.log(res.data.included.main_images);
-                let img = res.data.included.main_images.find((images) => item.relationships.main_image.data.id === images.link.id)
-                console.log(img.link.href);
+                let img = res.data.included.main_images.find((images) => item.relationships.main_image.data.id === images.id)
+                image = img.link.href;
             } catch (error) {
-                console.log(error);
+                // console.log(error);
                 image = 'https://via.placeholder.com/300x400.png';
             }
-            console.log(image);
             return {
                 name: item.name,
                 description: item.description,
