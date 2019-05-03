@@ -10,13 +10,16 @@ class ProductList extends React.Component {
     componentDidMount() {
         this.fetchData();
     }
-    componentDidUpdate() {
-        if (this.props.search === "") {
-            this.fetchData();
-        } else {
-            console.log(this.props.search);
-            this.findData();
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.search !== this.props.search) {
+            // console.log(this.props.search);
+            if (this.props.search === "") {
+                this.fetchData();
+            } else {
+                this.findData();
+            }
         }
+
     }
     fetchData = async () => {
         const res = await request.get('/products');
@@ -44,10 +47,8 @@ class ProductList extends React.Component {
         this.setState({ data: data });
         console.log(data);
     }
-
     render() {
         const { data } = this.state;
-        const { search } = this.props;
         return (
             <Box direction='column' pad='small' fill >
                 <Box pad='small' background='light-3'>
